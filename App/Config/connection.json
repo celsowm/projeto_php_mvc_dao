@@ -1,0 +1,7 @@
+{
+    "driver": "mysql",
+    "server": "localhost",
+    "database": "livraria",
+    "user": "root",
+    "password": ""
+}

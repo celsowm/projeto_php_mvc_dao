@@ -13,7 +13,7 @@ namespace App\Controller;
  *
  * @author celso
  */
-class AbstractController {
+abstract class AbstractController {
 
     //put your code here
     protected $vars = [];

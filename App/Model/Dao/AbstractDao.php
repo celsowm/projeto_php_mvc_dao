@@ -38,13 +38,24 @@ abstract class AbstractDao {
         $dados = [];
         $query = "SELECT * FROM {$this->getTableName()}";
         $statement = $this->pdo->query($query);
-        $registros = $statement->fetchAll();
-
-        foreach ($registros as $registro) {
-            $dados[] = $this->hydrate($registro);
+        while($dado = $statement->fetch(\PDO::FETCH_LAZY)){
+            $dados[] = $this->hydrate((array)$dado);
         }
+        return $dados;
+    }
+    
+    public function recuperarPorId($id): array {
 
-        return $registros;
+        $dados = [];
+        $query = "SELECT * "
+                . "FROM {$this->getTableName()} "
+                . "WHERE id = ?";
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([$id]);
+        while($dado = $statement->fetch(\PDO::FETCH_LAZY)){
+            $dados[] = $this->hydrate((array)$dado);
+        }
+        return $dados;
     }
     
     protected function hydrate(array $array, $class_name = null) : ?object{

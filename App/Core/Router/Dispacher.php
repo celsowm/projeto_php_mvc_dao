@@ -8,6 +8,8 @@
 
 namespace App\Core\Router;
 
+use App\Controller\AbstractController;
+
 /**
  * Description of Dispacher
  *
@@ -24,12 +26,13 @@ class Dispacher {
         $controller = $this->loadController();
 
         call_user_func_array([$controller, $this->request->action], $this->request->params);
+        $controller->render($this->request->action);
     }
 
-    public function loadController() {
-        $name = "App/Model/Controller/".
+    public function loadController() : AbstractController {
+        $name = "App\\Controller\\".
                 $this->request->controller . "Controller";
-        $controller = new $name();
+        $controller = new $name;
         return $controller;
     }
 

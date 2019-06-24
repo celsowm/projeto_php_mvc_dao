@@ -14,7 +14,7 @@ class Connection {
 
         $options = [];
         $dsn = "";
-        $arquivo = file_get_contents("..\Config\connection.json");
+        $arquivo = file_get_contents(ROOT."App\Config\connection.json");
         $json = json_decode($arquivo, true);
 
         switch ($json['driver']) {

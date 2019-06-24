@@ -17,7 +17,7 @@ class AbstractController {
 
     //put your code here
     protected $vars = [];
-    protected $layout = "default";
+    protected $layout = false;
 
     function set($d) {
         $this->vars = array_merge($this->vars, $d);
@@ -25,15 +25,15 @@ class AbstractController {
 
     function render($filename) {
         extract($this->vars);
-        ob_start();
-        require(ROOT . "View/" . ucfirst(str_replace('Controller', '', get_class($this))) . '/' . $filename . '.php');
-        $content_for_layout = ob_get_clean();
+        $controller_name = (new \ReflectionClass($this))->getShortName(); 
+        require(ROOT . "App" . DIRECTORY_SEPARATOR . "View" . DIRECTORY_SEPARATOR . ucfirst(str_replace('Controller', '', $controller_name)) . DIRECTORY_SEPARATOR . $filename . '.php');
+        /*$content_for_layout = ob_get_clean();
 
         if ($this->layout == false) {
             $content_for_layout;
         } else {
             require(ROOT . "View/Layout/" . $this->layout . '.php');
-        }
+        }*/
     }
 
 }

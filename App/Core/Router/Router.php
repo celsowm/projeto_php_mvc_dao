@@ -18,7 +18,7 @@ class Router {
     static public function parse($url, $request) {
         $url = trim($url);
 
-        if ($url == "/PHP_Rush_MVC/") {
+        if ($url == "/App/") {
             $request->controller = "Editora";
             $request->action = "index";
             $request->params = [];

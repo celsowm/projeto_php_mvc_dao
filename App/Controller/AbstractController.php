@@ -26,7 +26,11 @@ abstract class AbstractController {
     function render($filename) {
         extract($this->vars);
         $controller_name = (new \ReflectionClass($this))->getShortName(); 
+        ob_start();
         require(ROOT . "App" . DIRECTORY_SEPARATOR . "View" . DIRECTORY_SEPARATOR . ucfirst(str_replace('Controller', '', $controller_name)) . DIRECTORY_SEPARATOR . $filename . '.php');
+        $content_for_layout = ob_get_clean();
+        require(ROOT . "App" . DIRECTORY_SEPARATOR . "View" . DIRECTORY_SEPARATOR . "Layout" . DIRECTORY_SEPARATOR . 'default' . '.php');
+        
         /*$content_for_layout = ob_get_clean();
 
         if ($this->layout == false) {

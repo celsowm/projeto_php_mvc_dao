@@ -15,4 +15,10 @@ class EditoraController extends AbstractController {
         $editoras = $dao->recuperar();
         $this->set(compact('editoras'));
     }
+    
+    public function inserir(){
+        
+        $daoEditora = new EditoraDao();
+        
+    }
 }

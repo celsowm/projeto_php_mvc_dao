@@ -6,13 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace App\Controller;
+namespace App\Model\Entity;
 
 /**
- * Description of AutorController
+ * Description of Funcionario
  *
  * @author celso
  */
-class AutorController extends AbstractController {
-    //put your code here
+class Funcionario {
+    public $id;
+    public $nome;
+    public $cpf;
+    public $gerente;
 }

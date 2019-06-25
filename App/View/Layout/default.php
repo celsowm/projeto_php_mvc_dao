@@ -2,9 +2,10 @@
 <head>
     <meta charset="utf-8">
     <title>Projeto Livraria by 85 Bits Developer</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
-    <link href="starter-template.css" rel="stylesheet">
-
+    <base href="/" />
+    <!--link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"-->
+    <link href="http://localhost/projeto_php_mvc_dao/App/Webroot/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
             padding-top: 5rem;

@@ -82,5 +82,23 @@ abstract class AbstractDao {
         $short = str_ireplace("Dao", "", $dao_name);
         return 'App\\Model\\Entity\\'.$short;
     }
+    
+    public function getList($text, $id = 'id'){
+        
+        $query = "SELECT :id, :text FROM {$this->getTableName()}";
+        $statement = $this->pdo->prepare($query);
+        $statement->execute(['id'=>$id, 'text'=> 'text']);
+        return $statement->fetchAll(\PDO::FETCH_KEY_PAIR);
+        
+    }
+    
+    public function save(object $entity){
+        
+        $table = $this->getTableName();
+        $statement = $this->sql->getInsertStatement($entity, $table);
+        
+        
+        
+    }
 
 }

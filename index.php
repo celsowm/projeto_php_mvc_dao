@@ -9,6 +9,8 @@ define('ROOT', $_SERVER['DOCUMENT_ROOT']
         .'projeto_php_mvc_dao'
         .DIRECTORY_SEPARATOR);
 
+var_dump(dirname(__FILE__));
+
 define('ENTITY', ROOT
         .DIRECTORY_SEPARATOR
         .'App'

@@ -63,38 +63,62 @@ abstract class AbstractSQLDialect {
         return $statement;
     }
 
-    public function getUpdateStatement($id, object $object, string $table = null) {
+    public function getMappedValues($object, string $table = null): array {
 
         $schema = $this->getSchema($table);
         $pk = $this->getPrimaryKey($table);
         $columns_schema = array_column($schema, 'COLUMN_NAME');
-        $update_values = [];
+        $mapped_values = [];
         $reflection = new \ReflectionClass($object);
         $properties = $reflection->getProperties();
         foreach ($properties as $property) {
             if (in_array($property->getName(), $columns_schema)) {
-                $update_values[$property->getName()] = $property->getValue($novo_objeto);
+                $mapped_values[$property->getName()] = $property->getValue($novo_objeto);
             }
         }
 
-        if ($update_values[$pk]) {
-            unset($update_values[$pk]);
+        if ($mapped_values[$pk]) {
+            unset($mapped_values[$pk]);
         }
+
+        return $mapped_values;
+    }
+
+    public function getInsertStatement(object $object, string $table) : \PDOStatement{
+
+        $insert_values = $this->getMappedValues($object, $table);
+        $insert_array = array_map(function($v) {
+            return ":$v";
+        }, array_keys($insert_values));
+
+        $sql = "INSERT INTO $table ("
+                . implode(', ', array_keys($insert_values)) .")"
+                . implode(', ', $insert_values) .")";
+
+        $statement = $this->pdo->prepare($sql);
+        foreach ($insert_array as $key => $value) {
+            $statement->bindValue($key, $value);
+        }
+        return $statement;
+    }
+
+    public function getUpdateStatement($id, object $object, string $table = null) {
+
+        $update_values = $this->getMappedValues($object, $table);
 
         $update_array = array_map(function($v) {
             return "$v = :$v";
         }, array_keys($update_values));
 
-        $sql = "UPDATE editora SET "
+        $sql = "UPDATE $table SET "
                 . implode(', ', $update_array)
                 . " WHERE $pk = :id";
-        
+
         $statement = $this->pdo->prepare($sql);
         foreach ($update_values as $key => $value) {
             $statement->bindValue($key, $value);
-        } 
+        }
         return $statement;
-        
     }
 
 }

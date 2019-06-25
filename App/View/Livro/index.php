@@ -1,4 +1,4 @@
-<h1>Editoras</h1>
+<h1>Livros</h1>
 <div class="row col-md-12 centered">
     <table class="table table-striped custab">
         <thead>

@@ -22,4 +22,13 @@ class LivroController extends AbstractController {
         $livros = $dao->recuperar();
         $this->set(compact('livros'));
     }
+    
+    public function inserir(){
+        $dao = new LivroDao();
+        if($_REQUEST){
+            $livro = $dao->hydrate($_REQUEST);
+            $dao->save($livro);
+        }
+       
+    }
 }

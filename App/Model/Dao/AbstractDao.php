@@ -78,6 +78,7 @@ abstract class AbstractDao {
     }
 
     public function getEntityClassName() {
+        
         $dao_name = (new ReflectionClass($this))->getShortName();
         $short = str_ireplace("Dao", "", $dao_name);
         return 'App\\Model\\Entity\\'.$short;
@@ -85,10 +86,10 @@ abstract class AbstractDao {
     
     public function getList($text, $id = 'id'){
         
-        $query = "SELECT :id, :text FROM {$this->getTableName()}";
-        $statement = $this->pdo->prepare($query);
-        $statement->execute(['id'=>$id, 'text'=> 'text']);
-        return $statement->fetchAll(\PDO::FETCH_KEY_PAIR);
+        $query = "SELECT $id, $text FROM {$this->getTableName()}";
+        $statement = $this->pdo->query($query);
+        $options = $statement->fetchAll(\PDO::FETCH_KEY_PAIR);
+        return $options;
         
     }
     

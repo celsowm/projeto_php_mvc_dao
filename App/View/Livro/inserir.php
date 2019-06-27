@@ -51,10 +51,22 @@
           <input id="ano_publicacao" maxlength="4" name="ano_publicacao" placeholder="Ano YYYY de publicação" type="text" class="form-control" required="required">
       </div>
     </div>
-  </div> 
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label" for="editora_id">Editora</label> 
+    <div class="col-8">
+      <select id="editora_id" name="editora_id" class="custom-select" required="required">   
+          <option value=""> Selecione... </option>
+          <?php foreach ($editoras as $v => $t){
+            echo "<option value='$v'> $t </option>";
+          }
+          ?>
+      </select>
+    </div>
+  </div>  
   <div class="form-group row">
     <div class="offset-4 col-8">
-      <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+      <button name="submit" type="submit" class="btn btn-primary">Cadastrar</button>
     </div>
   </div>
 </form>

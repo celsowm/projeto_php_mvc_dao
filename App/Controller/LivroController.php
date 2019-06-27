@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Model\Dao\EditoraDao;
 use App\Model\Dao\LivroDao;
 
 /**
@@ -25,10 +26,15 @@ class LivroController extends AbstractController {
     
     public function inserir(){
         $dao = new LivroDao();
+        $editoraDao = new EditoraDao();
+        
+        $editoras = $editoraDao->getList('nome');
+        
         if($_REQUEST){
             $livro = $dao->hydrate($_REQUEST);
             $dao->save($livro);
         }
+        $this->set(compact('editoras'));
        
     }
 }
